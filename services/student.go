@@ -39,32 +39,34 @@ func (s *StudentService) Create(student models.Student) models.Student {
 }
 
 func (s *StudentService) Get(id int) (student models.Student, err error) {
-	for _, student := range s.students {
-		if int(student.StudentID) == id {
-			return student, nil
-		}
+	db.DB.First(&student, id)
+	if err := db.DB.Error; err != nil {
+		fmt.Println("Error fetching student:", err)
+		return models.Student{}, err
 	}
-	return models.Student{}, fmt.Errorf("student with ID %d not found", id)
+	return student, nil
 }
 
-func (s *StudentService) Update(id int, student models.Student) (models.Student, error) {
-	for i, student := range s.students {
-		if int(student.StudentID) == id {
-			s.students[i].Name = student.Name
-			s.students[i].Group = student.Group
-			s.students[i].Email = student.Email
-			return s.students[i], nil
-		}
+func (s *StudentService) Update(id int, updatedStudent models.Student) (student models.Student, err error) {
+	if err := db.DB.First(&student, id).Error; err != nil {
+		fmt.Println("Error finding student:", err)
+		return models.Student{}, err
 	}
-	return models.Student{}, fmt.Errorf("student with ID %d not found", id)
+
+	if err := db.DB.Model(&student).Updates(updatedStudent).Error; err != nil {
+		fmt.Println("Error updating student:", err)
+		return models.Student{}, err
+	}
+
+	return student, nil
 }
 
 func (s *StudentService) Delete(id int) error {
-	for i, student := range s.students {
-		if int(student.StudentID) == id {
-			s.students = append(s.students[:i], s.students[i+1:]...)
-			return nil
-		}
+	student, err := s.Get(id)
+	if err != nil {
+		fmt.Println("Error fetching student:", err)
+		return err
 	}
-	return fmt.Errorf("student with ID %d not found", id)
+	db.DB.Unscoped().Delete(&student)
+	return nil
 }

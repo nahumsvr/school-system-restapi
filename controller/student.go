@@ -59,9 +59,8 @@ func (s *StudentController) Update(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "El ID debe ser un número"})
 		return
 	}
-	body := utils.ReadBody(c)
 	var student models.Student
-	utils.ConvertToJson(c, body, &student)
+	utils.ConvertToJson(c, utils.ReadBody(c), &student)
 	newStudent, studentErr := s.StudentService.Update(id, student)
 	if studentErr != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": studentErr.Error()})
