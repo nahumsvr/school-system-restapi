@@ -2,7 +2,7 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	controllers "github.com/nahumsvr/school-system-restapi/controller"
+	"github.com/nahumsvr/school-system-restapi/controllers"
 	"github.com/nahumsvr/school-system-restapi/services"
 )
 

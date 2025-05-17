@@ -18,9 +18,24 @@ func ReadBody(c *gin.Context) []byte {
 	return body
 }
 
-func ConvertToJson(c *gin.Context, body []byte, student *models.Student) {
-	// err := json.NewEncoder(c.Writer).Encode(&student)
+func StudentConvertToJson(c *gin.Context, body []byte, student *models.Student) {
 	err := json.Unmarshal(body, &student)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Error parseando el JSON"})
+		return
+	}
+}
+
+func SubjectConvertToJson(c *gin.Context, body []byte, subject *models.Subject) {
+	err := json.Unmarshal(body, &subject)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Error parseando el JSON"})
+		return
+	}
+}
+
+func GradeConvertToJson(c *gin.Context, body []byte, grade *models.Grade) {
+	err := json.Unmarshal(body, &grade)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Error parseando el JSON"})
 		return

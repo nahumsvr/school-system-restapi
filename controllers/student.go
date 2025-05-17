@@ -28,7 +28,7 @@ func (s *StudentController) GetAll(c *gin.Context) {
 func (s *StudentController) Create(c *gin.Context) {
 	body := utils.ReadBody(c)
 	var student models.Student
-	utils.ConvertToJson(c, body, &student)
+	utils.StudentConvertToJson(c, body, &student)
 
 	if student.Name == "" || student.Group == "" || student.Email == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "El nombre, grupo y correo son obligatorios"})
@@ -60,7 +60,7 @@ func (s *StudentController) Update(c *gin.Context) {
 		return
 	}
 	var student models.Student
-	utils.ConvertToJson(c, utils.ReadBody(c), &student)
+	utils.StudentConvertToJson(c, utils.ReadBody(c), &student)
 	newStudent, studentErr := s.StudentService.Update(id, student)
 	if studentErr != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": studentErr.Error()})
