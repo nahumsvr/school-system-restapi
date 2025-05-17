@@ -6,7 +6,7 @@ import (
 	"github.com/nahumsvr/school-system-restapi/services"
 )
 
-func SetUpGradeRoutes(r *gin.Engine, s *services.GradeService) {
+func SetUpGradesRoutes(r *gin.Engine, s *services.GradeService) {
 	grades := r.Group("/api/grades")
 	gradeController := controllers.NewGradeController(s)
 

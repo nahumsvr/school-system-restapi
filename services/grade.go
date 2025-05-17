@@ -35,11 +35,14 @@ func (s *GradeService) Create(grade models.Grade) models.Grade {
 		fmt.Println("Error creating grade:", err)
 		return models.Grade{}
 	}
-	return grade
+	// Preload Student and Subject after creation
+	var result models.Grade
+	db.DB.Preload("Student").Preload("Subject").First(&result, grade.GradeID)
+	return result
 }
 
 func (s *GradeService) Get(id int) (grade models.Grade, err error) {
-	db.DB.First(&grade, id)
+	db.DB.Preload("Student").Preload("Subject").First(&grade, id)
 	if err := db.DB.Error; err != nil {
 		fmt.Println("Error fetching grade:", err)
 		return models.Grade{}, err

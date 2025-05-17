@@ -26,6 +26,7 @@ func main() {
 
 	routes.SetUpStudentRoutes(r, &services.StudentService{})
 	routes.SetUpSubjectsRoutes(r, &services.SubjectService{})
+	routes.SetUpGradesRoutes(r, &services.GradeService{})
 	r.Run(":3000")
 
 	fmt.Println("Servidor escuchando en el puerto 3000")
