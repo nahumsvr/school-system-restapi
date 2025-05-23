@@ -1,14 +1,31 @@
 package models
 
-import "gorm.io/gorm"
+// import "gorm.io/gorm"
 
+// type Grade struct {
+// 	gorm.Model
+// 	GradeID   uint    `gorm:"primaryKey;autoIncrement" json:"grade_id"`
+// 	StudentID uint    `gorm:"not null" json:"student_id"`
+// 	SubjectID uint    `gorm:"not null" json:"subject_id"`
+// 	Grade     float64 `gorm:"type:numeric(4,2);check:grade >= 0 AND grade <= 100" json:"grade"`
+
+//		Student Student `gorm:"foreignKey:StudentID;constraint:OnDelete:CASCADE" json:"student"`
+//		Subject Subject `gorm:"foreignKey:SubjectID;c	onstraint:OnDelete:CASCADE" json:"subject"`
+//	}
 type Grade struct {
-	gorm.Model
+	// gorm.Model
 	GradeID   uint    `gorm:"primaryKey;autoIncrement" json:"grade_id"`
 	StudentID uint    `gorm:"not null" json:"student_id"`
 	SubjectID uint    `gorm:"not null" json:"subject_id"`
-	Grade     float64 `gorm:"type:numeric(4,2);check:grade >= 0 AND grade <= 100" json:"grade"`
+	Grade     float64 `gorm:"type:numeric(4,2);check:grade >= 0 AND grade <= 10" json:"grade"`
 
 	Student Student `gorm:"foreignKey:StudentID;constraint:OnDelete:CASCADE" json:"student"`
-	Subject Subject `gorm:"foreignKey:SubjectID;constraint:OnDelete:CASCADE" json:"subject"`
+	Subject Subject `gorm:"foreignKey:SubjectID;c	onstraint:OnDelete:CASCADE" json:"subject"`
+}
+
+type GradeResponse struct {
+	GradeID   uint    `json:"grade_id"`
+	StudentID uint    `json:"student_id"`
+	SubjectID uint    `json:"subject_id"`
+	Grade     float64 `json:"grade"`
 }

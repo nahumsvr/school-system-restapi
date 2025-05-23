@@ -35,8 +35,8 @@ func (g *GradeController) Create(c *gin.Context) {
 		return
 	}
 
-	newGrade := g.GradeService.Create(grade)
-	c.JSON(http.StatusOK, newGrade)
+	g.GradeService.Create(&grade)
+	c.JSON(http.StatusOK, grade)
 }
 
 func (g *GradeController) Get(c *gin.Context) {
@@ -62,12 +62,12 @@ func (g *GradeController) Update(c *gin.Context) {
 	body := utils.ReadBody(c)
 	var grade models.Grade
 	utils.GradeConvertToJson(c, body, &grade)
-	updatedGrade, updateErr := g.GradeService.Update(id, grade)
-	if updateErr != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": updateErr.Error()})
+	// updatedGrade, updateErr := g.GradeService.Update(id, grade)
+	if err := g.GradeService.Update(id, grade); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, updatedGrade)
+	c.JSON(http.StatusOK, grade)
 }
 
 func (g *GradeController) Delete(c *gin.Context) {

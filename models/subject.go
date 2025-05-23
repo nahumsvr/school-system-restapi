@@ -1,9 +1,14 @@
 package models
 
-import "gorm.io/gorm"
+// import "gorm.io/gorm"
 
+//	type Subject struct {
+//		gorm.Model
+//		SubjectID uint   `gorm:"primaryKey;autoIncrement" json:"subject_id"`
+//		Name      string `gorm:"type:varchar(100);not null" json:"name"`
+//	}
 type Subject struct {
-	gorm.Model
+	// gorm.Model
 	SubjectID uint   `gorm:"primaryKey;autoIncrement" json:"subject_id"`
 	Name      string `gorm:"type:varchar(100);not null" json:"name"`
 }
