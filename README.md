@@ -12,8 +12,6 @@ Este sistema escolar incluye tres endpoints que permiten realizar operaciones **
 
 ## Requisitos
 
-Antes de comenzar, asegúrate de tener lo siguiente instalado en tu sistema:
-
 * [Go](https://golang.org/doc/install)
 * [Docker](https://www.docker.com/products/docker-desktop)
 
