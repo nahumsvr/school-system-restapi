@@ -61,3 +61,4 @@ Este sistema escolar incluye tres endpoints que permiten realizar operaciones **
 
 ---
 
+## [Video de uso de la API](https://youtu.be/or94zQOXRog)
